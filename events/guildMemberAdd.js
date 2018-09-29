@@ -7,4 +7,7 @@ exports.run = (client, member, message) => {
   var replacer = config.joinMsg.replace('NEWUSER', NEWUSER).replace('SERVERNAME', SERVERNAME);
   newchannel.send(`${replacer}`).catch(console.error);
 
+
+
+
 };

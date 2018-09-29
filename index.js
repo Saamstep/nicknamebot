@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client({ autoReconnect: true });
 const bot = new Discord.Client({ autoReconnect: true });
 const config = require('./config.json');
-client.login(config.token);
+client.login(process.env.TOKEN);
 const fs = require('fs');
 var colors = require('colors');
 
@@ -40,9 +40,7 @@ client.on('message', message => {
   if (message.content.includes(`youtu.be`)) {
     message.react(`👍`);
   }
-  if (message.content.includes(`${config.mcIP}`) && !message.author.bot) {
-    message.react(`✅`);
-  }
+
 
   let guild = message.guild;
 
@@ -52,35 +50,17 @@ client.on('message', message => {
     await message.react('🇽');
   };
 
+  try {
 
-  if (message.channel.id === `${config.supportChannelid}`) {
-
-
-    if (message.content.includes('[Addition]')) {
-      return pMreact();
-    }
-    if (message.content.includes('[Request]')) {
-      return pMreact();
-    }
-    if (message.content.includes('[Removal]')) {
-      return pMreact();
+    if (message.channel.id === config.nickChannelid) {
+      if (message.content !== ".iam") {
+        message.delete(0);
+      }
     }
 
-    if (!message.content.includes('[Addition]')) {
-      return message.delete();
-    }
-    if (!message.content.includes('[Request]')) {
-      return message.delete();
-    }
-    if (!message.content.includes('[Removal]')) {
-      return message.delete();
-    }
-
-
-
+  } catch {
+    return;
   }
-
-
 
   // Command file manager code
 
